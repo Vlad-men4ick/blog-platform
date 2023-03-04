@@ -2,7 +2,6 @@
 import statusUserReducer from '../reducers/statusUserLoginReducer';
 import getUserNameReduccer from '../reducers/getUserNameReduccer';
 import getUserEmailReduccer from '../reducers/getUserEmailReduccer';
-// import getUserPasswordReduccer from '../reducers/getUserPasswordReduccer';
 import getUserAvatarReduccer from '../reducers/getUserAvatarReduccer';
 import reduxThunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -12,7 +11,6 @@ const rootReducer = combineReducers({
   isLogin: statusUserReducer,
   userName: getUserNameReduccer,
   userEmail: getUserEmailReduccer,
-  // userPass: getUserPasswordReduccer,
   userAvatar: getUserAvatarReduccer,
 });
 

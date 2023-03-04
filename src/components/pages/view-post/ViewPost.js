@@ -7,12 +7,11 @@ import Spinner from '../../spiner/spiner';
 import like from '../../../img/like.svg';
 import myLike from '../../../img/myLike.svg';
 import { unLikeArticle, likeArticle, deleteArticle } from '../../../service/services';
+import { getDatePost } from '../../../utilities/getDatePost';
 import { Suspense, useState, useEffect } from 'react';
 import { Await, defer, Link, useLoaderData, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import { getYear, parseISO, format } from 'date-fns';
 import { useSelector } from 'react-redux';
-import { enGB } from 'date-fns/locale';
 import { Modal } from 'antd';
 
 const { confirm } = Modal;
@@ -43,15 +42,6 @@ function ViewPost() {
       },
       onCancel() {},
     });
-  };
-
-  const getDatePost = (pos) => {
-    const date = parseISO(pos.createdAt);
-    let month = format(date, 'LLLL', { locale: enGB });
-    month = month.charAt(0).toUpperCase() + month.slice(1);
-    const day = format(date, 'd', { locale: enGB });
-    const year = getYear(date);
-    return `${month} ${day}, ${year}`;
   };
 
   const getPostTags = (pos) =>

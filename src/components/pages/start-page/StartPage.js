@@ -10,10 +10,9 @@ import avatar from '../../../img/avatar.svg';
 import Spinner from '../../spiner/spiner';
 import ErrorBlock from '../../error/ErrorBlock';
 import { likeArticle, unLikeArticle, getArticles } from '../../../service/services';
+import { getDatePost } from '../../../utilities/getDatePost';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getYear, parseISO, format } from 'date-fns';
-import { enGB } from 'date-fns/locale';
 import ReactMarkdown from 'react-markdown';
 import { Pagination } from 'antd';
 
@@ -27,6 +26,7 @@ function StartPage() {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
+    setOnLoading(true);
     getArticles(page)
       .then((res) => {
         setPosts(res.articles);
@@ -36,19 +36,9 @@ function StartPage() {
       .catch(() => setOnError(true));
   }, [page]);
 
-  const getDatePost = (post) => {
-    const date = parseISO(post.createdAt);
-    let month = format(date, 'LLLL', { locale: enGB });
-    month = month.charAt(0).toUpperCase() + month.slice(1);
-    const day = format(date, 'd', { locale: enGB });
-    const year = getYear(date);
-    return `${month} ${day}, ${year}`;
-  };
-
   const getPostTags = (post) =>
     post.tagList.map((tagList, idx) => {
       if (!tagList) return null;
-
       return (
         <div key={post.slug + post.createdAt + idx} className="post-tag">
           {tagList}

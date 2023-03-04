@@ -15,7 +15,6 @@ import ViewPost, { singlePostLoader } from '../pages/view-post/ViewPost';
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-// import { useState, useEffect } from 'react';
 
 function App() {
   const dispatch = useDispatch();

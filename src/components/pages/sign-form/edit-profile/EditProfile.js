@@ -13,7 +13,7 @@ function EditProfile() {
   const [emailIsTaken, setemailIsTaken] = useState(false);
   const [usernamelIsTaken, setusernameIsTaken] = useState(false);
   const name = useSelector((state) => state.userName.username);
-  // const avatar = useSelector((state) => state.userAvatar.avatar);
+  const avatar = useSelector((state) => state.userAvatar.avatar);
   const emailU = useSelector((state) => state.userEmail.email);
   const {
     register,
@@ -34,7 +34,7 @@ function EditProfile() {
     setemailIsTaken(false);
     setusernameIsTaken(false);
 
-    const img = reg.image === '' ? 'https://cdn-icons-png.flaticon.com/512/147/147144.png' : reg.image;
+    const img = reg.image === '' ? avatar : reg.image;
     const pass = reg.password === '' ? undefined : reg.password;
     updateUserInfo(token, reg.email, pass, reg.username, img).then((res) => {
       if (res.errors) {

@@ -77,7 +77,8 @@ export const getArticles = async (page) => {
 };
 
 export const likeArticle = async (token, slug) => {
-  const res = await fetch(`https://blog.kata.academy/api/articles/${slug}/favorite`, {
+  const URL_likeArticle = new URL(`articles/${slug}/favorite`, _baseURL);
+  const res = await fetch(URL_likeArticle, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -89,7 +90,8 @@ export const likeArticle = async (token, slug) => {
 };
 
 export const unLikeArticle = async (token, slug) => {
-  const res = await fetch(`https://blog.kata.academy/api/articles/${slug}/favorite`, {
+  const URL_unLikeArticle = new URL(`articles/${slug}/favorite`, _baseURL);
+  const res = await fetch(URL_unLikeArticle, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -100,14 +102,9 @@ export const unLikeArticle = async (token, slug) => {
   return result;
 };
 
-// export const getSinglArticles = async (slug) => {
-//   const res = await fetch(`https://blog.kata.academy/api/articles/${slug}/favorite`);
-//   const result = await res.json();
-//   return result;
-// };
-
 export const updateUserInfo = async (token, email, password, username, image) => {
-  const res = await fetch('https://blog.kata.academy/api/user', {
+  const URL_updateUserInfo = new URL('user', _baseURL);
+  const res = await fetch(URL_updateUserInfo, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -127,7 +124,8 @@ export const updateUserInfo = async (token, email, password, username, image) =>
 };
 
 export const createArticle = async (title, description, body, tagList, token) => {
-  const res = await fetch('https://blog.kata.academy/api/articles', {
+  const URL_createArticle = new URL('articles', _baseURL);
+  const res = await fetch(URL_createArticle, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -147,7 +145,8 @@ export const createArticle = async (title, description, body, tagList, token) =>
 };
 
 export const updateArticle = async (title, description, body, tagList, token, slug) => {
-  const res = await fetch(`https://blog.kata.academy/api/articles/${slug.slice(1)}`, {
+  const URL_updateArticle = new URL(`articles/${slug.slice(1)}`, _baseURL);
+  const res = await fetch(URL_updateArticle, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -167,7 +166,8 @@ export const updateArticle = async (title, description, body, tagList, token, sl
 };
 
 export const getArticle = async (slug) => {
-  const res = await fetch(`https://blog.kata.academy/api/articles/${slug.slice(1)}`, {
+  const URL_getArticle = new URL(`articles/${slug.slice(1)}`, _baseURL);
+  const res = await fetch(URL_getArticle, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -179,7 +179,8 @@ export const getArticle = async (slug) => {
 };
 
 export const deleteArticle = async (token, slug) => {
-  const res = await fetch(`https://blog.kata.academy/api/articles/${slug}`, {
+  const URL_getArticle = new URL(`articles/${slug}`, _baseURL);
+  const res = await fetch(URL_getArticle, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
