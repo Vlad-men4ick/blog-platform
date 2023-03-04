@@ -1,0 +1,62 @@
+.header{
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  height: 80px;
+  align-items: center;
+}
+.user_data_wrapper{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.avatar{
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+}
+.realworld_logo{
+    color: black;
+    transition: 0.3;
+    text-decoration: none;
+}
+  .realworld_logo:hover{
+    color: rgba(0, 0, 0, 0.628);
+}
+
+.account_auth{
+  display: flex;
+  align-items: center;
+}
+
+.sign_in_btn{
+  border-radius: 5px;
+  padding: 6px 18px;
+  font-size: 18px;
+  margin-right: 19px;
+  border: none;
+  background-color: inherit;
+  text-decoration: none;
+  color: black;
+  transition: 0.3s;
+}
+
+.sign_in_btn:hover{
+  background-color:  rgba(0, 0, 0, 0.75);
+  color: #fff;
+}
+
+.sign_up_btn{
+  border-radius: 5px;
+  padding: 8px 22px;
+  font-size: 18px;
+  border: 1px solid #52C41A;
+  color: #52C41A;
+  background-color: inherit;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.sign_up_btn:hover{
+  background-color: #52C41A;
+  color: white;
+}

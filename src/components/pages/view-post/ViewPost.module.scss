@@ -1,0 +1,110 @@
+.single-blog-page {
+
+}
+.post {
+  background-color: white;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  margin: 24px auto;
+  // margin: 0 auto;
+  width: 80%;
+  padding: 14px 19px;
+}
+
+.post-header{
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-header__wrapper {
+  display: flex;
+}
+
+.post-header__wrapper h1 {
+  color: #1890FF;
+}
+
+.post-header__likes{
+  margin: auto 0;
+  height: 20px;
+}
+.post-header__likes img {
+  margin: 0 5px 0 15px;
+}
+.post-header__wrapper button {
+  position: relative;
+  top: 3px;
+}
+.post-tag-list {
+  margin-top: 5px;
+  display: flex;
+  width: auto;
+}
+.post-tag {
+  margin-right: 8px;
+  padding: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.5);
+  height: auto;
+  width: auto;
+}
+.post .edit-btn{
+    color: #52C41A;
+    border: 1px solid #52C41A;
+    border-radius: 5px;
+    padding: 3px 19px;
+    font-weight: 500;
+}
+
+.post .edit-btn:hover{
+  background-color: #52C41A;
+  color: white;
+  
+}
+
+.post .delete-btn{
+  color: #F5222D;
+  border: 1px solid #F5222D;
+  border-radius: 5px;
+  padding: 3px 19px;
+  font-weight: 500;
+}
+
+.post .delete-btn:hover{
+  background-color: #F5222D;
+  color: white;
+}
+
+.post-description{
+    margin-top: 5px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  .single-blog-page .post-text {
+    font-size: 20px;
+  }
+
+  .post-header_user{
+    display: flex;
+    
+  }
+
+  .post-header_user_name{
+    font-size: 18px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  .post-header_user_craeteArt {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .post-header_user img{
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+  }
+
+  .post-text {
+    font-size: 20px;
+  }

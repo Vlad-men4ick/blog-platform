@@ -1,0 +1,122 @@
+.create-article-form{
+    background-color: #fff;
+    width: 80%;
+    margin: 30px auto;
+    padding: 48px 32px;
+    border: 1px solid #D9D9D9;
+    box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07), 
+    0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198), 
+    0px 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 
+    0px 2.75474px 13.2728px rgba(0, 0, 0, 0.035), 
+    0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 
+    0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
+    border-radius: 6px;
+}
+
+.title-block, .text-block, .desc-block{
+    margin-bottom: 21px;
+}
+
+.create-article-form h2{
+    text-align: center;
+}
+
+.create-article-form label{
+    font-size: 14px;
+}
+
+.header-tags{
+  font-size: 14px;
+  font-family: "Inter", sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 22px;
+}
+
+.create-article-form .title-input, .create-article-form .desc-input, .create-article-form .text-input{
+    width: 95%;
+    padding: 8px 15px;
+    margin-bottom: 10px;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+    outline: none;
+}
+
+.tag-input {
+  padding: 8px 15px;
+  width: 250px;
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.create-article-form .text-input{
+  height: 160px;
+}
+
+.create-tags-block .create-container input{
+  width: 320px;
+}
+
+.send{
+    background-color: #1890FF;
+    margin-top: 21px;
+    width: 320px;
+    border-radius: 4px;
+    padding: 8px 16px;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.send-article:disabled{
+    background-color: #188fffc9;
+}
+
+.send-article:hover{
+    background-color: #45a3fa;
+}
+
+
+.tags-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.delete-tag {
+  margin: 0px 18px 5px;
+  border: 1px solid red;
+  border-radius: 4px;
+  color: red;
+  width: 120px;
+  height: 40px;
+}
+
+.add-tag{
+  border: 1px solid #1890FF;
+  border-radius: 4px;
+  color: #1890FF;
+  width: 120px;
+  height: 40px;
+}
+
+.error-form{
+  color: red;
+  font-size: 12px;
+}
+
+// .send {
+//   margin-top: 8px;
+//   width: 300px;
+//   padding: 10px 0;
+//   background-color: #1890FF;
+//   border: none;
+//   color: white;
+//   border-radius: 4px;
+// }

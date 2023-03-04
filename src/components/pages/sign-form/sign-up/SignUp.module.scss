@@ -1,0 +1,38 @@
+.agree-box {
+    position: relative;
+}
+
+.agree-checkbox[type = 'checkbox']{
+    position: absolute;
+    width: 16px;
+    // left: 0;
+    // display: none;
+}
+
+.agree-label{
+    display: block;
+    width: 300px;
+    padding-left: 15px;
+    color: #595959;
+}
+
+// .agree-label::before{
+//     // background-image: url('../../../../img/input.png');
+//     content: '';
+//     width: 20px;
+//     height: 20px;
+//     display: inline-block;
+//     position: relative;
+//     top: 5px;
+//     right: 5px;
+//     margin-left: -20px;
+
+// }
+
+// .agree-checkbox[type='checkbox']:checked + label::before{
+//     background-image: url('../../../../img/checked-input.png');    
+// }
+
+hr{
+    background-color: #E8E8E8;
+}

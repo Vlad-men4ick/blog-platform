@@ -1,0 +1,22 @@
+body{
+    font-family: 'Inter', sans-serif;
+    background: #EBEEF3; 
+    min-height: 100%;
+    // display: grid;
+    // grid-template-rows: auto 1fr auto;
+    margin: 0;
+}
+
+button{
+    cursor: pointer;
+}
+
+header{
+    background-color: #FFFFFF;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 22px;
+    // width: 100%;
+}
