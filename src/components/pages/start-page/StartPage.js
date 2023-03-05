@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/alt-text */
@@ -56,21 +57,31 @@ function StartPage() {
 
   const likeArticleHandler = (post) => {
     if (post.favorited) {
-      unLikeArticle(token, post.slug).then((res) =>
-        setPosts((prevState) => {
-          const actPost = res.article;
-          const index = posts.findIndex((item) => item.slug === actPost.slug);
-          return [...prevState.slice(0, index), actPost, ...prevState.slice(index + 1)];
-        })
-      );
+      unLikeArticle(token, post.slug)
+        .then((res) =>
+          setPosts((prevState) => {
+            const actPost = res.article;
+            const index = posts.findIndex((item) => item.slug === actPost.slug);
+            return [...prevState.slice(0, index), actPost, ...prevState.slice(index + 1)];
+          })
+        )
+        .catch((e) => {
+          console.log(e);
+          alert('Что-то пошло не так попробуйте снова.');
+        });
     } else {
-      likeArticle(token, post.slug).then((res) =>
-        setPosts((prevState) => {
-          const actPost = res.article;
-          const index = posts.findIndex((item) => item.slug === actPost.slug);
-          return [...prevState.slice(0, index), actPost, ...prevState.slice(index + 1)];
-        })
-      );
+      likeArticle(token, post.slug)
+        .then((res) =>
+          setPosts((prevState) => {
+            const actPost = res.article;
+            const index = posts.findIndex((item) => item.slug === actPost.slug);
+            return [...prevState.slice(0, index), actPost, ...prevState.slice(index + 1)];
+          })
+        )
+        .catch((e) => {
+          console.log(e);
+          alert('Что-то пошло не так попробуйте снова.');
+        });
     }
   };
 

@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/no-unescaped-entities */
 import articleFormClass from './ArticleForm.module.scss';
 import { createArticle, getArticle, updateArticle } from '../../../service/services';
+import Error from '../../error/Error';
 import { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -13,6 +15,9 @@ function ArticleForm({ flag }) {
   const [description, setDesc] = useState('');
   const [text, setText] = useState('');
   const [tags, setTags] = useState([]);
+
+  const [error, setError] = useState(false);
+
   const { slug } = useParams();
   const token = localStorage.getItem('token');
 
@@ -40,6 +45,7 @@ function ArticleForm({ flag }) {
   }, [flag, slug]);
 
   useEffect(() => {
+    setError(false);
     setValue('title', title);
     setValue('desc', description);
     setValue('text', text);
@@ -52,114 +58,122 @@ function ArticleForm({ flag }) {
   });
 
   const onSubmit = (reg) => {
-    const arrTags = reg.tags.map((el) => {
-      console.log(el.name);
-      return el.name;
-    });
+    const arrTags = reg.tags.map((el) => el.name);
     if (flag === 'createArtic') {
-      createArticle(reg.title, reg.desc, reg.text, arrTags, token).then((res) => console.log(res));
+      createArticle(reg.title, reg.desc, reg.text, arrTags, token).then((res) => {
+        if (res.errors) {
+          setError(true);
+        }
+      });
     }
     if (flag === 'editArtic') {
-      updateArticle(reg.title, reg.desc, reg.text, arrTags, token, slug).then((res) => console.log(res));
+      updateArticle(reg.title, reg.desc, reg.text, arrTags, token, slug).then((res) => {
+        if (res.errors) {
+          setError(true);
+        }
+      });
     }
   };
 
   return (
-    <form className={articleFormClass['create-article-form']} onSubmit={handleSubmit(onSubmit)}>
-      <div className={articleFormClass['title-block']}>
-        <label htmlFor="title">
-          Title
-          <input
-            className={articleFormClass['title-input']}
-            {...register('title', {
-              required: 'Поле обязательно к заполнению!',
-              minLength: {
-                value: 3,
-                message: 'Минимум 3 символа!',
-              },
-              maxLength: {
-                value: 60,
-                message: 'Максимум 60 символов',
-              },
-            })}
-            name="title"
-            placeholder="Title"
-            type="text"
-          />
-        </label>
-        <div className={articleFormClass['error-form']}>
-          {errors?.title && <p>{errors?.title?.message || 'Error!'} </p>}
+    <>
+      {error ? <Error setError={setError} /> : null}
+      <form className={articleFormClass['create-article-form']} onSubmit={handleSubmit(onSubmit)}>
+        <div className={articleFormClass['title-block']}>
+          <label htmlFor="title">
+            Title
+            <input
+              className={articleFormClass['title-input']}
+              {...register('title', {
+                required: 'Поле обязательно к заполнению!',
+                minLength: {
+                  value: 3,
+                  message: 'Минимум 3 символа!',
+                },
+                maxLength: {
+                  value: 60,
+                  message: 'Максимум 60 символов',
+                },
+              })}
+              name="title"
+              placeholder="Title"
+              type="text"
+            />
+          </label>
+          <div className={articleFormClass['error-form']}>
+            {errors?.title && <p>{errors?.title?.message || 'Error!'} </p>}
+          </div>
         </div>
-      </div>
 
-      <div className={articleFormClass['desc-block']}>
-        <label htmlFor="desc">
-          Short description
-          <input
-            className={articleFormClass['desc-input']}
-            {...register('desc', {
-              required: 'Поле обязательно к заполнению!',
-              minLength: {
-                value: 6,
-                message: 'Минимум 6 символов!',
-              },
-            })}
-            placeholder="Description"
-            type="text"
-          />
-        </label>
-        <div className={articleFormClass['error-form']}>
-          {errors?.desc && <p>{errors?.desc?.message || 'Error!'} </p>}
+        <div className={articleFormClass['desc-block']}>
+          <label htmlFor="desc">
+            Short description
+            <input
+              className={articleFormClass['desc-input']}
+              {...register('desc', {
+                required: 'Поле обязательно к заполнению!',
+                minLength: {
+                  value: 6,
+                  message: 'Минимум 6 символов!',
+                },
+              })}
+              placeholder="Description"
+              type="text"
+            />
+          </label>
+          <div className={articleFormClass['error-form']}>
+            {errors?.desc && <p>{errors?.desc?.message || 'Error!'} </p>}
+          </div>
         </div>
-      </div>
 
-      <div className={articleFormClass['text-block']}>
-        <label htmlFor="text">
-          Text
-          <textarea
-            className={articleFormClass['text-input']}
-            {...register('text', {
-              required: 'Поле обязательно к заполнению!',
-              minLength: {
-                value: 6,
-                message: 'Минимум 6 символов!',
-              },
-            })}
-            placeholder="Text"
-          />
-        </label>
-        <div className={articleFormClass['error-form']}>
-          {errors?.text && <p>{errors?.text?.message || 'Error!'} </p>}
+        <div className={articleFormClass['text-block']}>
+          <label htmlFor="text">
+            Text
+            <textarea
+              className={articleFormClass['text-input']}
+              {...register('text', {
+                required: 'Поле обязательно к заполнению!',
+                minLength: {
+                  value: 6,
+                  message: 'Минимум 6 символов!',
+                },
+              })}
+              placeholder="Text"
+            />
+          </label>
+          <div className={articleFormClass['error-form']}>
+            {errors?.text && <p>{errors?.text?.message || 'Error!'} </p>}
+          </div>
         </div>
-      </div>
 
-      <div className={articleFormClass['create-tags-block']}>
-        <h4 className={articleFormClass['header-tags']}>Tags</h4>
+        <div className={articleFormClass['create-tags-block']}>
+          <h4 className={articleFormClass['header-tags']}>Tags</h4>
 
-        <div className={articleFormClass['tags-container']}>
-          {fields.map((field, index) => (
-            <section key={field.id}>
-              <label>
-                <input {...register(`tags.${index}.name`)} className={articleFormClass['tag-input']} />
-              </label>
-              <button className={articleFormClass['delete-tag']} type="button" onClick={() => remove(index)}>
-                Delete
-              </button>
-            </section>
-          ))}
-          <button
-            className={articleFormClass['add-tag']}
-            type="button"
-            onClick={() => {
-              append({});
-            }}
-          >
-            Add tag
-          </button>
+          <div className={articleFormClass['tags-container']}>
+            {fields.map((field, index) => (
+              <section key={field.id}>
+                <label>
+                  <input {...register(`tags.${index}.name`)} className={articleFormClass['tag-input']} />
+                </label>
+                <button className={articleFormClass['delete-tag']} type="button" onClick={() => remove(index)}>
+                  Delete
+                </button>
+              </section>
+            ))}
+            <button
+              className={articleFormClass['add-tag']}
+              type="button"
+              onClick={() => {
+                append({});
+              }}
+            >
+              Add tag
+            </button>
+          </div>
         </div>
-      </div>
-      <input type="submit" value="Send" className={articleFormClass.send} />
-    </form>
+        <input type="submit" value="Send" className={articleFormClass.send} />
+      </form>
+    </>
   );
 }
 

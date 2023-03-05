@@ -1,15 +1,15 @@
 import ArticleForm from '../ArticleForm';
+import articleFormClass from '../ArticleForm.module.scss';
 
 function CreateArticlePage() {
   const flag = 'createArtic';
 
   return (
-    <div className="create-article-page">
-      <h2>Create new article</h2>
+    <div>
+      <h2 className={articleFormClass.header}>Create new article</h2>
       <ArticleForm flag={flag} />
     </div>
   );
 }
 
-// eslint-disable-next-line new-cap
 export default CreateArticlePage;

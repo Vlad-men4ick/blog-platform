@@ -1,0 +1,42 @@
+.wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  position: absolute;
+  min-width: 700px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+}
+
+.container {
+  margin: auto;
+  background-color: #d6e4f3;
+  border-radius: 4px;
+}
+
+.desription{
+  margin: 20px;
+}
+
+.button_wrapper{
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+
+.btn_yes{
+  border: 1px solid #1890FF;
+  color: #1890FF;
+}
+
+.btn_cancel{
+  border: 1px solid red;
+  color: red;
+}
+
+.btn{
+  margin-bottom: 20px;
+  width: 120px;
+  height: 40px;
+  border-radius: 4px;
+}

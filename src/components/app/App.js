@@ -28,7 +28,7 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
-        <Route path="" element={<StartPage />} />
+        <Route index element={<StartPage />} />
         <Route path="posts/:slug" element={<ViewPost />} loader={singlePostLoader} />
         <Route path="posts/:slug/edit-article" element={<EditArticle />} />
         <Route path="create-account" element={<SignUp />} />
