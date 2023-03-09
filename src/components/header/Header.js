@@ -1,15 +1,16 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/alt-text */
 import headerClass from './Header.module.scss';
-import avatar from '../../img/avatar.svg';
-import { userNoregistered, userAvatar, userName, userEmail } from '../../redux/actions/actions';
+// import { userNoregistered, userAvatar, userName, userEmail } from '../../redux/actions/actions';
+import { userNoregistered, userData } from '../../redux/actions/actions';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 function Header() {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.isLogin);
-  const name = useSelector((state) => state.userName.username);
-  const userImage = useSelector((state) => state.userAvatar.image);
+  const name = useSelector((state) => state.userData.username);
+  const userImage = useSelector((state) => state.userData.image);
   if (isLogin) {
     return (
       <header className={headerClass.header}>
@@ -23,7 +24,17 @@ function Header() {
           <Link to="/edit-profile" className={headerClass.sign_in_btn}>
             <div className={headerClass.user_data_wrapper}>
               <p>{name}</p>
-              {userImage ? <img className={headerClass.avatar} src={userImage} /> : <img src={avatar} />}
+              {userImage === undefined ? (
+                <img className={headerClass.avatar} src="https://static.productionready.io/images/smiley-cyrus.jpg" />
+              ) : (
+                <img
+                  className={headerClass.avatar}
+                  src={userImage}
+                  onError={(e) =>
+                    e.target.setAttribute('src', 'https://static.productionready.io/images/smiley-cyrus.jpg')
+                  }
+                />
+              )}
             </div>
           </Link>
           <Link
@@ -31,10 +42,7 @@ function Header() {
             onClick={() => {
               dispatch(userNoregistered);
               localStorage.removeItem('token');
-              localStorage.removeItem('pass');
-              dispatch(userAvatar());
-              dispatch(userName());
-              dispatch(userEmail());
+              dispatch(userData());
             }}
             className={headerClass.sign_in_btn}
           >

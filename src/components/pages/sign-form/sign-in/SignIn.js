@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/no-unescaped-entities */
@@ -13,6 +14,7 @@ import { useState } from 'react';
 function SignIn() {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.isLogin);
+  const token = useSelector((state) => state.userData.token);
   const [errorValue, setErrorValue] = useState(false);
 
   const [error, setError] = useState(false);
@@ -22,7 +24,7 @@ function SignIn() {
     formState: { errors, isValid },
     handleSubmit,
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onSubmit',
   });
 
   const onSubmit = (reg) => {
@@ -44,7 +46,7 @@ function SignIn() {
       });
   };
 
-  if (localStorage.getItem('token') !== undefined && isLogin) {
+  if (token !== undefined && isLogin) {
     return <Navigate to="/" replace />;
   }
 
@@ -99,7 +101,7 @@ function SignIn() {
           </div>
         </div>
 
-        <input type="submit" value="Create" disabled={!isValid} />
+        <input type="submit" value="Login" disabled={!isValid} />
         <p>
           Don't have an account? <Link to="/create-account">Sign up</Link>
         </p>

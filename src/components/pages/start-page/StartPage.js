@@ -12,30 +12,31 @@ import Spinner from '../../spiner/spiner';
 import ErrorBlock from '../../error/ErrorBlock';
 import { likeArticle, unLikeArticle, getArticles } from '../../../service/services';
 import { getDatePost } from '../../../utilities/getDatePost';
+import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Pagination } from 'antd';
 
 function StartPage() {
+  const token = useSelector((state) => state.userData.token);
   const [onLoading, setOnLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(null);
   const [onError, setOnError] = useState(false);
   const disallowed = ['a'];
-  const token = localStorage.getItem('token');
 
   useEffect(() => {
     setOnLoading(true);
-    getArticles(page)
+    getArticles(page, token)
       .then((res) => {
         setPosts(res.articles);
         setTotalPages(res.articlesCount - 5);
         setOnLoading(false);
       })
       .catch(() => setOnError(true));
-  }, [page]);
+  }, [page, token]);
 
   const getPostTags = (post) =>
     post.tagList.map((tagList, idx) => {
@@ -99,7 +100,7 @@ function StartPage() {
             <div className={startPage['post-header']}>
               <div className={startPage['post-header__info']}>
                 <div className={startPage['post-header__wrapper']}>
-                  <Link to={`/posts/:${post.slug}`}>
+                  <Link className={startPage['post-header__title']} to={`/posts/:${post.slug}`}>
                     <h1>{post.title}</h1>
                   </Link>
                   <div className={startPage['post-header__likes']}>

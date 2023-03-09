@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { userRegistered, userName, userEmail, userAvatar } from '../redux/actions/actions';
+import { userRegistered, userData } from '../redux/actions/actions';
 
 const _baseURL = new URL('https://blog.kata.academy/api/');
 
@@ -52,16 +52,17 @@ export const getUser = () => (dispatch) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      const { username, email, image } = res.user;
+      dispatch(userData(res.user));
+      // const { username, email, image } = res.user;
 
-      dispatch(userName({ username }));
-      dispatch(userEmail({ email }));
-      dispatch(userAvatar({ image }));
+      // dispatch(userName({ username }));
+      // dispatch(userEmail({ email }));
+      // dispatch(userAvatar({ image }));
       dispatch(userRegistered);
     });
 };
 
-export const getArticles = async (page) => {
+export const getArticles = async (page, token) => {
   const URL_getArticles = new URL('articles', _baseURL);
   URL_getArticles.searchParams.set('limit', 5);
   URL_getArticles.searchParams.set('offset', page);
@@ -69,7 +70,7 @@ export const getArticles = async (page) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: `Token ${localStorage.getItem('token')}`,
+      Authorization: `Token ${token}`,
     },
   });
   const result = await res.json();
@@ -171,7 +172,7 @@ export const getArticle = async (slug) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: `Token ${localStorage.getItem('token')}`,
+      // Authorization: `Token ${token}`,
     },
   });
   const result = await res.json();

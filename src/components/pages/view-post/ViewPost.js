@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-alert */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/no-children-prop */
@@ -19,9 +20,10 @@ const { confirm } = Modal;
 
 function ViewPost() {
   const isUserLoggedIn = useSelector((state) => state.isLogin);
-  const userName = useSelector((state) => state.userName.username);
+  const userName = useSelector((state) => state.userData.username);
+  const token = useSelector((state) => state.userData.token);
   const { post } = useLoaderData();
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
   const [isPostFavorited, setPostFavorited] = useState();
@@ -33,7 +35,6 @@ function ViewPost() {
       content: 'Really?',
       onOk() {
         return new Promise((resolve, reject) => {
-          console.log(token, pos.slug);
           deleteArticle(token, pos.slug).then((res) => {
             res.ok ? resolve() : reject();
             return navigate('/');
@@ -80,11 +81,14 @@ function ViewPost() {
   };
 
   useEffect(() => {
+    if (!isUserLoggedIn) {
+      return navigate('/sign-in');
+    }
     post.then((pos) => {
       setPostFavorited(pos.article.favorited);
       setFavoritesCount(pos.article.favoritesCount);
     });
-  }, [post]);
+  }, [isUserLoggedIn, navigate, post]);
 
   return (
     <div className={viewPostClass['single-blog-page']}>
@@ -117,7 +121,7 @@ function ViewPost() {
                         src={resolvedPost.article.author.image}
                         alt="user img"
                         onError={(e) =>
-                          e.target.setAttribute('src', 'https://static.productionready.io/images/smiley-cyrus.jpg')
+                          e.target.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/147/147144.png')
                         }
                       />
                     </div>

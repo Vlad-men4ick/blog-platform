@@ -1,12 +1,13 @@
+/* eslint-disable no-shadow */
 /* eslint-disable consistent-return */
 /* eslint-disable no-useless-escape */
 import signUpClass from './SignUp.module.scss';
 import signFormClass from '../SignForm.module.scss';
-import avatar from '../../../../img/avatar.svg';
 import Error from '../../../error/Error';
-import { userRegistered, userName, userEmail, userAvatar } from '../../../../redux/actions/actions';
+import { userRegistered, userData } from '../../../../redux/actions/actions';
+
 import { registerUser } from '../../../../service/services';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,21 +15,25 @@ import { useSelector, useDispatch } from 'react-redux';
 function SignUp() {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.isLogin);
+  const token = useSelector((state) => state.userData.token);
   const [emailIsTaken, setemailIsTaken] = useState(false);
   const [usernamelIsTaken, setusernameIsTaken] = useState(false);
 
   const [error, setError] = useState(false);
 
+  const navigate = useNavigate();
+
   const {
     watch,
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
     reset,
   } = useForm({
     mode: 'onBlur',
   });
   const onSubmit = (reg) => {
+    console.log(reg);
     setError(false);
     setemailIsTaken(false);
     setusernameIsTaken(false);
@@ -38,12 +43,13 @@ function SignUp() {
           if (res.errors.email === 'is already taken.') setemailIsTaken(true);
           if (res.errors.username === 'is already taken.') setusernameIsTaken(true);
         } else {
+          console.log(res);
           const { username, email } = { ...reg };
+          const { token } = res.user;
           localStorage.setItem('token', res.user.token);
           dispatch(userRegistered);
-          dispatch(userName({ username }));
-          dispatch(userEmail({ email }));
-          dispatch(userAvatar({ avatar }));
+          dispatch(userData({ username, email, token }));
+          navigate('/');
           reset();
         }
       })
@@ -52,7 +58,7 @@ function SignUp() {
         setError(true);
       });
   };
-  if (localStorage.getItem('token') !== undefined && isLogin) {
+  if (token !== undefined && isLogin) {
     return <Navigate to="/" replace />;
   }
   return (
@@ -174,7 +180,7 @@ function SignUp() {
           {errors?.agree && <p>{errors?.agree?.message || 'Error!'} </p>}
         </div>
 
-        <input type="submit" value="Create" disabled={!isValid} />
+        <input type="submit" value="Create" />
         <p>
           Already have an account? <Link to="/sign-in">Sign in</Link>.
         </p>

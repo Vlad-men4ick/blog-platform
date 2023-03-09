@@ -5,7 +5,7 @@ import signFormClass from '../SignForm.module.scss';
 import ErrorBlock from '../../../error/ErrorBlock';
 import Error from '../../../error/Error';
 import { updateUserInfo } from '../../../../service/services';
-import { userName, userEmail, userAvatar } from '../../../../redux/actions/actions';
+import { userData } from '../../../../redux/actions/actions';
 import { Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,16 +20,20 @@ function EditProfile() {
 
   const [error, setError] = useState(false);
 
-  const name = useSelector((state) => state.userName.username);
-  const avatar = useSelector((state) => state.userAvatar.avatar);
-  const emailU = useSelector((state) => state.userEmail.email);
+  const name = useSelector((state) => state.userData.username);
+  const avatar = useSelector((state) => state.userData.image);
+  const emailU = useSelector((state) => state.userData.email);
+
+  const token = useSelector((state) => state.userData.token);
+
+  const isLogin = useSelector((state) => state.isLogin);
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
     setValue,
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onSubmit',
     defaultValues: {
       email: emailU,
       username: name,
@@ -37,7 +41,6 @@ function EditProfile() {
   });
 
   const onSubmit = (reg) => {
-    const token = localStorage.getItem('token');
     setSuccess(false);
     setemailIsTaken(false);
     setusernameIsTaken(false);
@@ -52,12 +55,10 @@ function EditProfile() {
           if (res.errors.email === 'is already taken.') setemailIsTaken(true);
           if (res.errors.username === 'is already taken.') setusernameIsTaken(true);
           if (res.errors.message === 'Not Found') setNotFound(true);
+        } else {
+          dispatch(userData(res.user));
+          setSuccess(true);
         }
-        const { email, username, image } = res.user;
-        dispatch(userEmail({ email }));
-        dispatch(userName({ username }));
-        dispatch(userAvatar({ image }));
-        setSuccess(true);
       })
       .catch((e) => {
         console.log(e);
@@ -69,6 +70,9 @@ function EditProfile() {
     setValue('username', name);
     setValue('email', emailU);
   }, [setValue, name, emailU]);
+  if (!isLogin) {
+    return <Navigate to="/" replace />;
+  }
   if (success) {
     return <Navigate to="/" replace />;
   }
@@ -174,7 +178,7 @@ function EditProfile() {
             </div>
           </div>
 
-          <input type="submit" value="Create" disabled={!isValid} />
+          <input type="submit" value="Save" disabled={!isValid} />
         </form>
       )}
     </>

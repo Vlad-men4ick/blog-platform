@@ -1,13 +1,13 @@
-const defaultState = {};
+// const defaultState = {};
 
-const getUserAvatarReduccer = (state = defaultState, action = {}) => {
-  switch (action.type) {
-    case 'USERAVATAR':
-      return { ...action.payload };
+// const getUserAvatarReduccer = (state = defaultState, action = {}) => {
+//   switch (action.type) {
+//     case 'USERAVATAR':
+//       return { ...action.payload };
 
-    default:
-      return state;
-  }
-};
+//     default:
+//       return state;
+//   }
+// };
 
-export default getUserAvatarReduccer;
+// export default getUserAvatarReduccer;

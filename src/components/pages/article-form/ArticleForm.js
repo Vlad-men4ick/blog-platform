@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
@@ -6,9 +7,11 @@
 import articleFormClass from './ArticleForm.module.scss';
 import { createArticle, getArticle, updateArticle } from '../../../service/services';
 import Error from '../../error/Error';
+import Successfully from '../../successfully/Successfully';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 
 function ArticleForm({ flag }) {
   const [title, setTitle] = useState('');
@@ -17,8 +20,10 @@ function ArticleForm({ flag }) {
   const [tags, setTags] = useState([]);
 
   const [error, setError] = useState(false);
+  const [statusArticle, setStatusArticle] = useState(false);
 
   const { slug } = useParams();
+  const isLogin = useSelector((state) => state.isLogin);
   const token = localStorage.getItem('token');
 
   const {
@@ -28,12 +33,11 @@ function ArticleForm({ flag }) {
     handleSubmit,
     setValue,
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onSubmit',
   });
 
   useEffect(() => {
     if (flag === 'editArtic') {
-      console.log(slug);
       getArticle(slug).then((res) => {
         setTitle(res.article.title);
         setDesc(res.article.description);
@@ -45,6 +49,7 @@ function ArticleForm({ flag }) {
   }, [flag, slug]);
 
   useEffect(() => {
+    setStatusArticle(false);
     setError(false);
     setValue('title', title);
     setValue('desc', description);
@@ -57,6 +62,10 @@ function ArticleForm({ flag }) {
     control,
   });
 
+  if (!isLogin) {
+    return <Navigate to="/" replace />;
+  }
+
   const onSubmit = (reg) => {
     const arrTags = reg.tags.map((el) => el.name);
     if (flag === 'createArtic') {
@@ -64,6 +73,7 @@ function ArticleForm({ flag }) {
         if (res.errors) {
           setError(true);
         }
+        setStatusArticle(true);
       });
     }
     if (flag === 'editArtic') {
@@ -71,6 +81,7 @@ function ArticleForm({ flag }) {
         if (res.errors) {
           setError(true);
         }
+        setStatusArticle(true);
       });
     }
   };
@@ -78,6 +89,7 @@ function ArticleForm({ flag }) {
   return (
     <>
       {error ? <Error setError={setError} /> : null}
+      {statusArticle ? <Successfully setStatusArticle={setStatusArticle} flag={flag} /> : null}
       <form className={articleFormClass['create-article-form']} onSubmit={handleSubmit(onSubmit)}>
         <div className={articleFormClass['title-block']}>
           <label htmlFor="title">

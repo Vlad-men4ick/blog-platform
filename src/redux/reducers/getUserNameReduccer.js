@@ -1,13 +1,13 @@
-const defaultState = {};
+// const defaultState = {};
 
-const getUserNameReduccer = (state = defaultState, action = {}) => {
-  switch (action.type) {
-    case 'USERNAME':
-      return { ...action.payload };
+// const getUserNameReduccer = (state = defaultState, action = {}) => {
+//   switch (action.type) {
+//     case 'USERNAME':
+//       return { ...action.payload };
 
-    default:
-      return state;
-  }
-};
+//     default:
+//       return state;
+//   }
+// };
 
-export default getUserNameReduccer;
+// export default getUserNameReduccer;
