@@ -1,6 +1,6 @@
 const defaultState = {};
 
-const getUserData = (state = defaultState, action = {}) => {
+const getUserDataReducer = (state = defaultState, action = {}) => {
   switch (action.type) {
     case 'USERDATA':
       return { ...action.payload };
@@ -10,4 +10,4 @@ const getUserData = (state = defaultState, action = {}) => {
   }
 };
 
-export default getUserData;
+export default getUserDataReducer;

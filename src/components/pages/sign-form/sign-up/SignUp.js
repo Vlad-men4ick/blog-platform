@@ -30,10 +30,9 @@ function SignUp() {
     handleSubmit,
     reset,
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onSubmit',
   });
   const onSubmit = (reg) => {
-    console.log(reg);
     setError(false);
     setemailIsTaken(false);
     setusernameIsTaken(false);
@@ -43,7 +42,6 @@ function SignUp() {
           if (res.errors.email === 'is already taken.') setemailIsTaken(true);
           if (res.errors.username === 'is already taken.') setusernameIsTaken(true);
         } else {
-          console.log(res);
           const { username, email } = { ...reg };
           const { token } = res.user;
           localStorage.setItem('token', res.user.token);
@@ -104,7 +102,7 @@ function SignUp() {
                 },
               })}
               id="email-input"
-              type="email"
+              type="text"
               placeholder="Email"
             />
           </label>

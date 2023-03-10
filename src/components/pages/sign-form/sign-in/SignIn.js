@@ -21,7 +21,7 @@ function SignIn() {
 
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
   } = useForm({
     mode: 'onSubmit',
@@ -101,7 +101,7 @@ function SignIn() {
           </div>
         </div>
 
-        <input type="submit" value="Login" disabled={!isValid} />
+        <input type="submit" value="Login" />
         <p>
           Don't have an account? <Link to="/create-account">Sign up</Link>
         </p>

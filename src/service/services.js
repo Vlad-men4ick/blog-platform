@@ -1,3 +1,4 @@
+/* eslint-disable default-param-last */
 /* eslint-disable consistent-return */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { userRegistered, userData } from '../redux/actions/actions';

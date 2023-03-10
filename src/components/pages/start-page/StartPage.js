@@ -14,7 +14,7 @@ import { likeArticle, unLikeArticle, getArticles } from '../../../service/servic
 import { getDatePost } from '../../../utilities/getDatePost';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Pagination } from 'antd';
 
@@ -26,6 +26,8 @@ function StartPage() {
   const [totalPages, setTotalPages] = useState(null);
   const [onError, setOnError] = useState(false);
   const disallowed = ['a'];
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setOnLoading(true);
@@ -57,6 +59,9 @@ function StartPage() {
   };
 
   const likeArticleHandler = (post) => {
+    if (!token) {
+      navigate('/sign-in');
+    }
     if (post.favorited) {
       unLikeArticle(token, post.slug)
         .then((res) =>
