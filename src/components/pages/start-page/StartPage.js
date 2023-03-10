@@ -7,7 +7,6 @@
 import startPage from './StartPage.module.scss';
 import like from '../../../img/like.svg';
 import myLike from '../../../img/myLike.svg';
-import avatar from '../../../img/avatar.svg';
 import Spinner from '../../spiner/spiner';
 import ErrorBlock from '../../error/ErrorBlock';
 import { likeArticle, unLikeArticle, getArticles } from '../../../service/services';
@@ -59,9 +58,9 @@ function StartPage() {
   };
 
   const likeArticleHandler = (post) => {
-    if (!token) {
-      navigate('/sign-in');
-    }
+    // if (!token) {
+    //   navigate('/sign-in');
+    // }
     if (post.favorited) {
       unLikeArticle(token, post.slug)
         .then((res) =>
@@ -109,7 +108,7 @@ function StartPage() {
                     <h1>{post.title}</h1>
                   </Link>
                   <div className={startPage['post-header__likes']}>
-                    <button type="button" onClick={() => likeArticleHandler(post)}>
+                    <button type="button" onClick={token ? () => likeArticleHandler(post) : () => navigate('/sign-in')}>
                       {post.favorited ? <img src={myLike} /> : <img src={like} />}
                     </button>
                     <span style={{ color: post.favorited ? 'red' : 'gray' }}>{post.favoritesCount}</span>
@@ -124,10 +123,10 @@ function StartPage() {
                 </div>
                 <div>
                   <img
-                    src={post.author.image ? post.author.image : avatar}
+                    src={post.author.image}
                     alt="user img"
                     onError={(e) =>
-                      e.target.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/147/147144.png')
+                      e.target.setAttribute('src', 'https://static.productionready.io/images/smiley-cyrus.jpg')
                     }
                   />
                 </div>

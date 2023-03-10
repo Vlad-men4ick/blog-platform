@@ -18,13 +18,14 @@ function ArticleForm({ flag }) {
   const [description, setDesc] = useState('');
   const [text, setText] = useState('');
   const [tags, setTags] = useState([]);
-
   const [error, setError] = useState(false);
   const [statusArticle, setStatusArticle] = useState(false);
 
   const { slug } = useParams();
+
   const isLogin = useSelector((state) => state.isLogin);
-  const token = localStorage.getItem('token');
+  const token = useSelector((state) => state.userData.token);
+  // const token = localStorage.getItem('token');
 
   const {
     control,

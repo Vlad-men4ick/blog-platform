@@ -29,7 +29,7 @@ function EditProfile() {
   const isLogin = useSelector((state) => state.isLogin);
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
     setValue,
   } = useForm({
@@ -178,7 +178,7 @@ function EditProfile() {
             </div>
           </div>
 
-          <input type="submit" value="Save" disabled={!isValid} />
+          <input type="submit" value="Save" />
         </form>
       )}
     </>

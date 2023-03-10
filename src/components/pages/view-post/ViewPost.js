@@ -121,7 +121,7 @@ function ViewPost() {
                         src={resolvedPost.article.author.image}
                         alt="user img"
                         onError={(e) =>
-                          e.target.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/147/147144.png')
+                          e.target.setAttribute('src', 'https://static.productionready.io/images/smiley-cyrus.jpg')
                         }
                       />
                     </div>
