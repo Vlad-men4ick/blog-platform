@@ -25,7 +25,6 @@ function ArticleForm({ flag }) {
 
   const isLogin = useSelector((state) => state.isLogin);
   const token = useSelector((state) => state.userData.token);
-  // const token = localStorage.getItem('token');
 
   const {
     control,
@@ -39,7 +38,7 @@ function ArticleForm({ flag }) {
 
   useEffect(() => {
     if (flag === 'editArtic') {
-      getArticle(slug).then((res) => {
+      getArticle(slug, token).then((res) => {
         setTitle(res.article.title);
         setDesc(res.article.description);
         setText(res.article.body);

@@ -23,7 +23,6 @@ function ViewPost() {
   const userName = useSelector((state) => state.userData.username);
   const token = useSelector((state) => state.userData.token);
   const { post } = useLoaderData();
-  // const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
   const [isPostFavorited, setPostFavorited] = useState();
@@ -162,11 +161,11 @@ function ViewPost() {
 export default ViewPost;
 
 async function getSinglePost(params) {
-  const res = await fetch(`https://blog.kata.academy/api/articles/${params.slug.slice(1)}`, {
+  const res = await fetch(`https://blog.kata.academy/api/articles/${params.slice(1)}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: `Token ${localStorage.getItem('token')}`,
+      Authorization: `Token ${sessionStorage.getItem('token')}`,
     },
   });
   return res.json();
@@ -174,5 +173,5 @@ async function getSinglePost(params) {
 
 export const singlePostLoader = async ({ params }) =>
   defer({
-    post: getSinglePost(params),
+    post: getSinglePost(params.slug),
   });

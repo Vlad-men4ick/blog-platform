@@ -1,6 +1,3 @@
-/* eslint-disable default-param-last */
-/* eslint-disable consistent-return */
-/* eslint-disable react-hooks/rules-of-hooks */
 import { userRegistered, userData } from '../redux/actions/actions';
 
 const _baseURL = new URL('https://blog.kata.academy/api/');
@@ -167,13 +164,13 @@ export const updateArticle = async (title, description, body, tagList, token, sl
   return result;
 };
 
-export const getArticle = async (slug) => {
+export const getArticle = async (slug, token) => {
   const URL_getArticle = new URL(`articles/${slug.slice(1)}`, _baseURL);
   const res = await fetch(URL_getArticle, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      // Authorization: `Token ${token}`,
+      Authorization: `Token ${token}`,
     },
   });
   const result = await res.json();
