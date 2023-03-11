@@ -20,7 +20,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!localStorage.getItem('token')) return;
+    if (!sessionStorage.getItem('token')) return;
     dispatch(getUser());
     dispatch(userRegistered);
   }, [dispatch]);

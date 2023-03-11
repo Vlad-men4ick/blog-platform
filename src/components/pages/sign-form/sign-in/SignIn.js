@@ -35,7 +35,7 @@ function SignIn() {
         if (res.errors) {
           if (res.errors) setErrorValue(true);
         } else {
-          localStorage.setItem('token', res.user.token);
+          sessionStorage.setItem('token', res.user.token);
           dispatch(userRegistered);
           dispatch(getUser());
         }

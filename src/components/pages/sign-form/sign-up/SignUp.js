@@ -44,7 +44,7 @@ function SignUp() {
         } else {
           const { username, email } = { ...reg };
           const { token } = res.user;
-          localStorage.setItem('token', res.user.token);
+          sessionStorage.setItem('token', res.user.token);
           dispatch(userRegistered);
           dispatch(userData({ username, email, token }));
           navigate('/');

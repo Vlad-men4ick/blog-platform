@@ -48,7 +48,7 @@ export const getUser = () => (dispatch) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: `Token ${localStorage.getItem('token')}`,
+      Authorization: `Token ${sessionStorage.getItem('token')}`,
     },
   })
     .then((res) => res.json())

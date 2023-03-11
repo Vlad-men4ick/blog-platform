@@ -41,7 +41,7 @@ function Header() {
             to="/"
             onClick={() => {
               dispatch(userNoregistered);
-              localStorage.removeItem('token');
+              sessionStorage.removeItem('token');
               dispatch(userData());
             }}
             className={headerClass.sign_in_btn}
