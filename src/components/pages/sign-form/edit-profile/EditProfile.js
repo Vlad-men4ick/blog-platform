@@ -26,7 +26,6 @@ function EditProfile() {
 
   const token = useSelector((state) => state.userData.token);
 
-  const isLogin = useSelector((state) => state.isLogin);
   const {
     register,
     formState: { errors },
@@ -70,7 +69,7 @@ function EditProfile() {
     setValue('username', name);
     setValue('email', emailU);
   }, [setValue, name, emailU]);
-  if (!isLogin) {
+  if (!token) {
     return <Navigate to="/" replace />;
   }
   if (success) {

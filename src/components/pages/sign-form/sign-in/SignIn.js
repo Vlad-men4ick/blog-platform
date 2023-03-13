@@ -5,7 +5,6 @@
 import signFormClass from '../SignForm.module.scss';
 import Error from '../../../error/Error';
 import { logInUser, getUser } from '../../../../service/services';
-import { userRegistered } from '../../../../redux/actions/actions';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +12,6 @@ import { useState } from 'react';
 
 function SignIn() {
   const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.isLogin);
   const token = useSelector((state) => state.userData.token);
   const [errorValue, setErrorValue] = useState(false);
 
@@ -35,8 +33,7 @@ function SignIn() {
         if (res.errors) {
           if (res.errors) setErrorValue(true);
         } else {
-          sessionStorage.setItem('token', res.user.token);
-          dispatch(userRegistered);
+          localStorage.setItem('token', res.user.token);
           dispatch(getUser());
         }
       })
@@ -46,7 +43,7 @@ function SignIn() {
       });
   };
 
-  if (token !== undefined && isLogin) {
+  if (token) {
     return <Navigate to="/" replace />;
   }
 

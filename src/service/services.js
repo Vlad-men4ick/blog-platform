@@ -1,4 +1,4 @@
-import { userRegistered, userData } from '../redux/actions/actions';
+import { userData } from '../redux/actions/actions';
 
 const _baseURL = new URL('https://blog.kata.academy/api/');
 
@@ -45,18 +45,12 @@ export const getUser = () => (dispatch) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: `Token ${sessionStorage.getItem('token')}`,
+      Authorization: `Token ${localStorage.getItem('token')}`,
     },
   })
     .then((res) => res.json())
     .then((res) => {
       dispatch(userData(res.user));
-      // const { username, email, image } = res.user;
-
-      // dispatch(userName({ username }));
-      // dispatch(userEmail({ email }));
-      // dispatch(userAvatar({ image }));
-      dispatch(userRegistered);
     });
 };
 

@@ -1,6 +1,4 @@
-export const userRegistered = { type: 'TRUE' };
-export const userNoregistered = { type: 'FALSE' };
-
+/* eslint-disable import/prefer-default-export */
 export const userData = (payload) => ({
   type: 'USERDATA',
   payload,

@@ -6,8 +6,8 @@ import { Navigate } from 'react-router-dom';
 function EditArticle() {
   const flag = 'editArtic';
 
-  const isLogin = useSelector((state) => state.isLogin);
-  if (!isLogin) {
+  const token = useSelector((state) => state.userData.token);
+  if (!token) {
     return <Navigate to="/" replace />;
   }
   return (

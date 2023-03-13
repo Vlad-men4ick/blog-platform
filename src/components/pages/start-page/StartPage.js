@@ -58,9 +58,6 @@ function StartPage() {
   };
 
   const likeArticleHandler = (post) => {
-    // if (!token) {
-    //   navigate('/sign-in');
-    // }
     if (post.favorited) {
       unLikeArticle(token, post.slug)
         .then((res) =>

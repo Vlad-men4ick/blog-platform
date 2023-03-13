@@ -23,7 +23,7 @@ function ArticleForm({ flag }) {
 
   const { slug } = useParams();
 
-  const isLogin = useSelector((state) => state.isLogin);
+  // const isLogin = useSelector((state) => state.isLogin);
   const token = useSelector((state) => state.userData.token);
 
   const {
@@ -62,7 +62,7 @@ function ArticleForm({ flag }) {
     control,
   });
 
-  if (!isLogin) {
+  if (!token) {
     return <Navigate to="/" replace />;
   }
 

@@ -10,7 +10,6 @@ import CreateArticlePage from '../pages/article-form/create-article/CreateArticl
 import EditArticle from '../pages/article-form/edit-article/EditArticle';
 import NotFoundPage from '../pages/not-found-page/NotFoundPage';
 import { getUser } from '../../service/services';
-import { userRegistered } from '../../redux/actions/actions';
 import ViewPost, { singlePostLoader } from '../pages/view-post/ViewPost';
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -20,9 +19,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!sessionStorage.getItem('token')) return;
+    if (!localStorage.getItem('token')) return;
     dispatch(getUser());
-    dispatch(userRegistered);
   }, [dispatch]);
 
   const router = createBrowserRouter(

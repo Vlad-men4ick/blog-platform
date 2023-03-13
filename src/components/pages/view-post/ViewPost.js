@@ -19,7 +19,6 @@ import { Modal } from 'antd';
 const { confirm } = Modal;
 
 function ViewPost() {
-  const isUserLoggedIn = useSelector((state) => state.isLogin);
   const userName = useSelector((state) => state.userData.username);
   const token = useSelector((state) => state.userData.token);
   const { post } = useLoaderData();
@@ -80,14 +79,14 @@ function ViewPost() {
   };
 
   useEffect(() => {
-    if (!isUserLoggedIn) {
+    if (!token) {
       return navigate('/sign-in');
     }
     post.then((pos) => {
       setPostFavorited(pos.article.favorited);
       setFavoritesCount(pos.article.favoritesCount);
     });
-  }, [isUserLoggedIn, navigate, post]);
+  }, [token, navigate, post]);
 
   return (
     <div className={viewPostClass['single-blog-page']}>
@@ -125,7 +124,7 @@ function ViewPost() {
                       />
                     </div>
                   </div>
-                  {isUserLoggedIn && resolvedPost.article.author.username === userName ? (
+                  {token && resolvedPost.article.author.username === userName ? (
                     <div>
                       <button
                         type="button"
@@ -165,7 +164,7 @@ async function getSinglePost(params) {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: `Token ${sessionStorage.getItem('token')}`,
+      Authorization: `Token ${localStorage.getItem('token')}`,
     },
   });
   return res.json();

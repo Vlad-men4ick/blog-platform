@@ -1,17 +1,17 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/alt-text */
 import headerClass from './Header.module.scss';
-// import { userNoregistered, userAvatar, userName, userEmail } from '../../redux/actions/actions';
-import { userNoregistered, userData } from '../../redux/actions/actions';
+import { userData } from '../../redux/actions/actions';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 function Header() {
   const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.isLogin);
+  const token = useSelector((state) => state.userData.token);
+
   const name = useSelector((state) => state.userData.username);
   const userImage = useSelector((state) => state.userData.image);
-  if (isLogin) {
+  if (token !== undefined) {
     return (
       <header className={headerClass.header}>
         <Link className={headerClass.realworld_logo} to="/">
@@ -40,8 +40,7 @@ function Header() {
           <Link
             to="/"
             onClick={() => {
-              dispatch(userNoregistered);
-              sessionStorage.removeItem('token');
+              localStorage.removeItem('token');
               dispatch(userData());
             }}
             className={headerClass.sign_in_btn}

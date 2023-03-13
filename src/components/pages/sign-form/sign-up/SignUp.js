@@ -4,7 +4,7 @@
 import signUpClass from './SignUp.module.scss';
 import signFormClass from '../SignForm.module.scss';
 import Error from '../../../error/Error';
-import { userRegistered, userData } from '../../../../redux/actions/actions';
+import { userData } from '../../../../redux/actions/actions';
 
 import { registerUser } from '../../../../service/services';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
@@ -14,7 +14,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function SignUp() {
   const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.isLogin);
   const token = useSelector((state) => state.userData.token);
   const [emailIsTaken, setemailIsTaken] = useState(false);
   const [usernamelIsTaken, setusernameIsTaken] = useState(false);
@@ -44,8 +43,7 @@ function SignUp() {
         } else {
           const { username, email } = { ...reg };
           const { token } = res.user;
-          sessionStorage.setItem('token', res.user.token);
-          dispatch(userRegistered);
+          localStorage.setItem('token', res.user.token);
           dispatch(userData({ username, email, token }));
           navigate('/');
           reset();
@@ -56,7 +54,7 @@ function SignUp() {
         setError(true);
       });
   };
-  if (token !== undefined && isLogin) {
+  if (token) {
     return <Navigate to="/" replace />;
   }
   return (
